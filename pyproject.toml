@@ -1,0 +1,11 @@
+[build-system]
+requires = [
+    "pip=21.0",
+    "setuptools",
+    "scikit-build",
+    "cmake>=3.5",
+	"pygccxml",
+    "pyplusplus",
+	"wheel"
+]
+build-backend = "setuptools.build_meta"
