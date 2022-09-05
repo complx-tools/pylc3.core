@@ -1,6 +1,6 @@
-=====
+==========
 pylc3.core
-=====
+==========
 
 Python bindings for liblc3, the LC-3 simulator library behind complx.
 
@@ -12,7 +12,11 @@ Installation
 
 * Install python, boost-python (should be compiled with your version of Python) and castxml.
 
-``$ sudo apt-get install -y build-essential cmake libboost-python-dev castxml python-pip``
+``
+  $ sudo add-apt-repository ppa:tricksterguy87/complx
+  $ sudo apt update
+  $ sudo apt-get install -y build-essential cmake libboost-python-dev castxml python-pip liblc3-dev
+``
 
 * Install scikit-build and dependencies
 
