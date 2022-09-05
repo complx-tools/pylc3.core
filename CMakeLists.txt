@@ -47,7 +47,7 @@ if(CMAKE_BUILD_TYPE MATCHES "Debug")
     set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 endif(CMAKE_BUILD_TYPE MATCHES "Debug")
 
-#set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
+set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
 
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/PyLC3Gen.cpp
