@@ -2,7 +2,7 @@
 import argparse
 import os
 
-from pygccxml import parser
+from pygccxml import parser as pygccxml_parser
 from pygccxml import declarations
 from pyplusplus import module_builder
 
@@ -19,7 +19,7 @@ args = parser.parse_args()
 
 
 # Create configuration for CastXML
-xml_generator_config = parser.xml_generator_configuration_t(
+xml_generator_config = pygccxml_parser.xml_generator_configuration_t(
                                     xml_generator_path=generator_path,
                                     xml_generator='castxml',
                                     compiler='gnu',
