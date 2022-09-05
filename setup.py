@@ -3,7 +3,7 @@
 """The setup script."""
 
 from skbuild import setup
-from setuptools import find_packages
+from setuptools import find_namespace_packages
 
 with open('README.rst') as f:
     readme = f.read()
