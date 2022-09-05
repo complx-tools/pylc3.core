@@ -4,8 +4,8 @@ requires = [
     "setuptools",
     "scikit-build",
     "cmake>=3.5",
-	"pygccxml",
+    "pygccxml",
     "pyplusplus",
-	"wheel"
+    "wheel"
 ]
 build-backend = "setuptools.build_meta"
