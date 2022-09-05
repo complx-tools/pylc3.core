@@ -20,8 +20,9 @@ jobs:
         python-version: '3.x'
     - name: Install dependencies
       run: |
+        sudo add-apt-repository ppa:tricksterguy87/complx
         sudo apt-get update -qq
-        sudo apt-get install -y castxml libpython3-dev libboost-python-dev
+        sudo apt-get install -y castxml libpython3-dev libboost-python-dev liblc3-dev
         sudo python3 -m pip install --upgrade pip
         sudo pip3 install --upgrade scikit-build pygccxml pyplusplus wheel pip setuptools
     - name: Build Dist
