@@ -68,7 +68,7 @@ builder.calldefs(declarations.access_type_matcher_t('protected')).exclude()
 builder.calldefs(declarations.access_type_matcher_t('private')).exclude()
 
 # Define a name for the module
-builder.build_code_creator(module_name="pylc3.core")
+builder.build_code_creator(module_name="core")
 
 # Writes the C++ interface file
 builder.write_module(os.path.join(args.output_path, 'PyLC3Gen.cpp'))

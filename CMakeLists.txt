@@ -11,6 +11,8 @@ find_package(liblc3 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${Python3_INCLUDE_DIRS})
 include_directories(${LIBLC3_INCLUDE_DIR})
+# For PyLC3Gen.cpp to find PyLC3.hpp
+include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 link_directories(${Boost_LIBRARY_DIR})
 
 # Require C++11 build
@@ -50,37 +52,37 @@ endif(CMAKE_BUILD_TYPE MATCHES "Debug")
 add_custom_command(
     OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/PyLC3Gen.cpp
     COMMAND ${Python3_EXECUTABLE}
-    ARGS scripts/pylc3_generator.py --castxml_path=${CASTXML_PATH} --pylc3_header=pylc3.core/PyLC3.hpp --liblc3_include_path=${LIBLC3_INCLUDE_DIR} --output_path=${CMAKE_CURRENT_BINARY_DIR} --compiler_path=${CMAKE_C_COMPILER}
+    ARGS scripts/pylc3_generator.py --castxml_path=${CASTXML_PATH} --pylc3_header=pylc3/core/PyLC3.hpp --liblc3_include_path=${LIBLC3_INCLUDE_DIR} --output_path=${CMAKE_CURRENT_BINARY_DIR} --compiler_path=${CMAKE_C_COMPILER}
     DEPENDS scripts/pylc3_generator.py
-    MAIN_DEPENDENCY pylc3.core/PyLC3.hpp
+    MAIN_DEPENDENCY pylc3/core/PyLC3.hpp
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Generating PyLC3Gen.cpp"
 )
 
 set(SRC_PYLC3
-    pylc3.core/PyLC3.cpp
+    pylc3/core/PyLC3.cpp
     ${CMAKE_CURRENT_BINARY_DIR}/PyLC3Gen.cpp
 )
 
 add_library(
-    pylc3.core
+    core
     MODULE
     ${SRC_PYLC3}
 )
 
 target_link_libraries(
-    pylc3.core
+    core
     ${LIBLC3_LIBRARY}
     ${Boost_LIBRARIES}
     ${Python3_LIBRARIES}
 )
 
-set_target_properties(pylc3.core PROPERTIES SUFFIX .so)
-set_target_properties(pylc3.core PROPERTIES PREFIX "")
+set_target_properties(core PROPERTIES SUFFIX .so)
+set_target_properties(core PROPERTIES PREFIX "")
 
-python_extension_module(pylc3.core)
+python_extension_module(core)
 
-install(TARGETS pylc3.core LIBRARY DESTINATION pylc3.core)
+install(TARGETS core LIBRARY DESTINATION pylc3/core)
 
 # uninstall target
 configure_file(
