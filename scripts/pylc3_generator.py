@@ -1,28 +1,38 @@
 #!/usr/bin/python3
+import argparse
+import os
+
 from pygccxml import parser
 from pygccxml import declarations
 from pyplusplus import module_builder
+
 import sys
 
-generator_path = '/usr/bin/castxml'
-if len(sys.argv) > 1:
-    generator_path = sys.argv[1]
+parser = argparse.ArgumentParser(description="Generate bindings from header files")
+parser.add_argument("--castxml_path", default="/usr/bin/castxml", type=str)
+parser.add_argument("--pylc3_header")
+parser.add_argument("--liblc3_include_path")
+parser.add_argument("--output_path")
+parser.add_argument("--compiler_path")
+
+args = parser.parse_args()
+
 
 # Create configuration for CastXML
 xml_generator_config = parser.xml_generator_configuration_t(
                                     xml_generator_path=generator_path,
                                     xml_generator='castxml',
                                     compiler='gnu',
-                                    compiler_path='/usr/bin/gcc',
-                                    cflags='-std=c++11 -I../liblc3')
+                                    compiler_path=args.compiler_path,
+                                    cflags=f'-std=c++11 -I{args.liblc3_include_path}')
 
 # List of all the C++ header of our library
-header_collection = ["PyLC3.hpp", "../liblc3/lc3_all.hpp"]
+header_collection = [args.pylc3_header, f"{args.liblc3_include_path}/lc3_all.hpp"]
 
 # Parses the source files and creates a module_builder object
 builder = module_builder.module_builder_t(
                         header_collection,
-                        xml_generator_path='/usr/bin/castxml',
+                        xml_generator_path=args.castxml_path,
                         xml_generator_config=xml_generator_config)
 
 # Debugging
@@ -58,7 +68,7 @@ builder.calldefs(declarations.access_type_matcher_t('protected')).exclude()
 builder.calldefs(declarations.access_type_matcher_t('private')).exclude()
 
 # Define a name for the module
-builder.build_code_creator(module_name="pylc3")
+builder.build_code_creator(module_name="pylc3.core")
 
 # Writes the C++ interface file
-builder.write_module('PyLC3Gen.cpp')
+builder.write_module(os.path.join(args.output_path, 'PyLC3Gen.cpp'))

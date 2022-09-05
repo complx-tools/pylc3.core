@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pylc3.core LANGUAGES CXX VERSION 0.1)
+project(pylc3.core LANGUAGES C CXX VERSION 0.1)
 
 set(CASTXML_PATH "/usr/bin/castxml" CACHE STRING "where to find the castXML executable")
 
@@ -45,13 +45,14 @@ if(CMAKE_BUILD_TYPE MATCHES "Debug")
     set(CMAKE_EXE_LINKER_FLAGS "-fprofile-arcs -ftest-coverage")
 endif(CMAKE_BUILD_TYPE MATCHES "Debug")
 
-set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
+#set(CMAKE_SHARED_LINKER_FLAGS "-Wl,--export-all-symbols")
 
 add_custom_command(
-    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/PyLC3Gen.cpp ${CMAKE_CURRENT_BINARY_DIR}/exposed_decl.pypp.txt ${CMAKE_CURRENT_BINARY_DIR}/named_tuple.py
-    COMMAND ${Python3_EXECUTABLE} scripts/pylc3_generator.py ${CASTXML_PATH}
-    DEPENDS pylc3.core/PyLC3.hpp
-    MAIN_DEPENDENCY scripts/pylc3_generator.py
+    OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/PyLC3Gen.cpp
+    COMMAND ${Python3_EXECUTABLE}
+    ARGS scripts/pylc3_generator.py --castxml_path=${CASTXML_PATH} --pylc3_header=pylc3.core/PyLC3.hpp --liblc3_include_path=${LIBLC3_INCLUDE_DIR} --output_path=${CMAKE_CURRENT_BINARY_DIR} --compiler_path=${CMAKE_C_COMPILER}
+    DEPENDS scripts/pylc3_generator.py
+    MAIN_DEPENDENCY pylc3.core/PyLC3.hpp
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
     COMMENT "Generating PyLC3Gen.cpp"
 )
