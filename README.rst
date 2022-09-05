@@ -12,11 +12,9 @@ Installation
 
 * Install python, boost-python (should be compiled with your version of Python) and castxml.
 
-``
-  $ sudo add-apt-repository ppa:tricksterguy87/complx
-  $ sudo apt update
-  $ sudo apt-get install -y build-essential cmake libboost-python-dev castxml python-pip liblc3-dev
-``
+``$ sudo add-apt-repository ppa:tricksterguy87/complx``
+``$ sudo apt update``
+``$ sudo apt-get install -y build-essential cmake libboost-python-dev castxml python-pip liblc3-dev``
 
 * Install scikit-build and dependencies
 
