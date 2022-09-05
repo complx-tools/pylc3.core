@@ -10,7 +10,7 @@ with open('README.rst') as f:
 
 setup(
     name='pylc3.core',
-    version='0.1.4',
+    version='0.1.5',
     description="Python bindings for liblc3, the LC-3 simulator framework",
     long_description=readme,
     long_description_content_type='text/x-rst',
