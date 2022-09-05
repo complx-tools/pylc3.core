@@ -18,5 +18,6 @@ setup(
     author_email='brandon.whitehead@gatech.edu',
     url='https://github.com/complx-tools/pylc3.core',
     license="GNU General Public License v3",
-    packages=find_packages(exclude=['tests', 'docs', 'scripts', 'cmake']),
+    packages=find_namespace_packages(include=['pylc3.*']),
+    zip_safe=False,
 )
