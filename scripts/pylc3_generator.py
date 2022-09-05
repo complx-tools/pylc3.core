@@ -10,17 +10,17 @@ import sys
 
 parser = argparse.ArgumentParser(description="Generate bindings from header files")
 parser.add_argument("--castxml_path", default="/usr/bin/castxml", type=str)
-parser.add_argument("--pylc3_header")
-parser.add_argument("--liblc3_include_path")
-parser.add_argument("--output_path")
-parser.add_argument("--compiler_path")
+parser.add_argument("--pylc3_header", type=str)
+parser.add_argument("--liblc3_include_path", type=str)
+parser.add_argument("--output_path", type=str)
+parser.add_argument("--compiler_path", type=str)
 
 args = parser.parse_args()
 
 
 # Create configuration for CastXML
 xml_generator_config = pygccxml_parser.xml_generator_configuration_t(
-                                    xml_generator_path=generator_path,
+                                    xml_generator_path=args.castxml_path,
                                     xml_generator='castxml',
                                     compiler='gnu',
                                     compiler_path=args.compiler_path,
