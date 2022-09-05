@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(pylc3.core LANGUAGES C CXX VERSION 0.1.2)
+project(pylc3.core LANGUAGES C CXX VERSION 0.1.3)
 
 set(CASTXML_PATH "/usr/bin/castxml" CACHE STRING "where to find the castXML executable")
 
